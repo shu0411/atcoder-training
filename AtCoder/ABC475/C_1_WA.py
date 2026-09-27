@@ -2,9 +2,8 @@ import io
 import sys
 
 _INPUT = """\
-9 6 28
-5 4 9 2 3 6 1 4
-
+6 3 18
+9 9 1 2 1
 """
 sys.stdin = io.StringIO(_INPUT)
 
@@ -41,7 +40,7 @@ for i in range(S - 1, N - 1):
     tmp_left_dist += list_A[i] * 2
 
 # 端の調整（右2個*2増やして左1個減らしてもLを超えない場合、その方がcountが大きくなる）
-while tmp_left_r <= N - 4:
+while S != tmp_left_l and tmp_left_r <= N - 4:
     if (
         tmp_left_dist
         - list_A[tmp_left_l]
@@ -79,7 +78,7 @@ for i in range(S - 2, -1, -1):
     tmp_right_dist += list_A[i] * 2
 
 # 端の調整（左2個*2増やして右1個減らしてもLを超えない場合、その方がcountが大きくなる）
-while tmp_right_l >= 2:
+while S != tmp_right_r and tmp_right_l >= 2:
     if (
         tmp_right_dist
         - list_A[tmp_right_r]
@@ -88,7 +87,7 @@ while tmp_right_l >= 2:
     ):
         break
 
-    tmp_left_count += 1
+    tmp_right_count += 1
     tmp_right_dist -= list_A[tmp_right_r]
     tmp_right_dist += (list_A[tmp_right_l - 1] + list_A[tmp_right_l - 2]) * 2
     tmp_right_r -= 1
